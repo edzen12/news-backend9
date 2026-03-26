@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+        {% for art in articles %}
+            <h2>{{art.title}}</h2>
+            <p>{{art.description}}</p>
+        {% endfor %}
+    </div>
+</body>
+</html>
