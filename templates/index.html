@@ -19,21 +19,28 @@
 
         <ul class="nav nav-pills">
             <li class="nav-item"><a href="#" class="nav-link active" aria-current="page">Home</a></li>
-            <li class="nav-item"><a href="#" class="nav-link">Features</a></li>
-            <li class="nav-item"><a href="#" class="nav-link">Pricing</a></li>
-            <li class="nav-item"><a href="#" class="nav-link">FAQs</a></li>
-            <li class="nav-item"><a href="#" class="nav-link">About</a></li>
+            {% for category in categories %}
+            <li class="nav-item">
+                <a href="#" class="nav-link">{{category.name}}</a>
+            </li>
+            {% endfor %}
         </ul>
         </header>
     </div>
     <!-- header -->
 
     <div class="container">
-        {% for art in articles %}
-            <h2>{{art.title}}</h2>
-            <p>{{art.description}}</p>
-            <img src="{{art.image}}" alt="">
-        {% endfor %}
+        <div class="row">
+            {% for art in articles %}
+            <div class="col-lg-4">
+                <div class="card p-2">
+                    <img width="300px" class="img-thumbnail" src="{{art.image.url}}">
+                    <h2>{{art.title}}</h2>
+                    <p>{{art.description|truncatewords:12}}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div> 
     </div>
 
     <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
