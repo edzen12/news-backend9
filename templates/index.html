@@ -31,14 +31,16 @@
 
     <div class="container">
         <div class="row">
-            {% for art in articles %}
+            {% for art in articles %} 
             <div class="col-lg-4">
                 <div class="card p-2">
-                    <img width="300px" class="img-thumbnail" src="{{art.image.url}}">
-                    <h2>{{art.title}}</h2>
-                    <p>{{art.description|truncatewords:12}}</p>
+                    <a href='{% url "post_detail" art.slug %}'>
+                        <img width="300px" class="img-thumbnail" src="{{art.image.url}}">
+                        <h2>{{art.title}}</h2>
+                        <p>{{art.description|truncatewords:12}}</p>
+                    </a>
                 </div>
-            </div>
+            </div> 
             {% endfor %}
         </div> 
     </div>

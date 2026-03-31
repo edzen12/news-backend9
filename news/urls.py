@@ -8,4 +8,5 @@ from post import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index),
+    path('<slug:slug>/', views.post_detail, name='post_detail'),
 ]+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
