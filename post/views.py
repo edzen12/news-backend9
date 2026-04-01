@@ -14,7 +14,9 @@ def index(request):
 
 def post_detail(request, slug):
     articles = get_object_or_404(Article, slug=slug)
+    categories = Category.objects.all()[:6]
     context = {
         'articles':articles, 
+        'categories':categories,
     }
     return render(request, 'post-detail.html', context)
