@@ -9,4 +9,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index, name='home'),
     path('<slug:slug>/', views.post_detail, name='post_detail'),
+    path('category/<slug:slug>/', views.category_posts, name='category_posts'),
 ]+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

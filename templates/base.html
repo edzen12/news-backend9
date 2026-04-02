@@ -22,7 +22,9 @@
             </li>
             {% for category in categories %}
             <li class="nav-item">
-                <a href="#" class="nav-link">{{category.name}}</a>
+                <a href="{% url "category_posts" category.slug %}" class="nav-link">
+                    {{category.name}} ({{category.articles_count}})
+                </a>
             </li>
             {% endfor %}
         </ul>
