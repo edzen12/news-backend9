@@ -1,0 +1,17 @@
+header h3{
+    margin-top: 10px;
+    color: white;
+    text-transform: uppercase;
+    margin-left: 10px;
+}
+header{
+    align-items: center;
+}
+.headerBlock a{
+    color: white;
+    background-color: #1c55e4;
+    margin-left: 5px;
+}
+.footerStyle a{
+    color: rgb(228, 224, 224)!important;
+}

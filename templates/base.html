@@ -6,17 +6,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Новостой сайт</title>
     <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'css/main.css' %}" rel="stylesheet">
   </head>
   <body>
     <!-- header -->
-    <div class="container">
-        <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
+    <div class=" bg-success">
+        <header class="container d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
         <a href="{% url "home" %}" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
             <img width="50px" src='https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Python-logo-notext.svg/1280px-Python-logo-notext.svg.png'>
-            <h3>Лого</h3>
+            <h3>News.kg</h3>
         </a>
 
-        <ul class="nav nav-pills">
+        <ul class="nav nav-pills headerBlock">
             <li class="nav-item">
                 <a href="{% url "home" %}" class="nav-link active" aria-current="page">Главная</a>
             </li>
@@ -37,9 +38,9 @@
     {% endblock content %}
 
 <div class=" bg-success text-light">
-  <footer class="container py-5">
+  <footer class="container py-5 footerStyle">
     <div class="row">
-      <div class="col-6 col-md-2 mb-3">
+      <div class="col-6 col-md-2 mb-1">
         <h5>Section</h5>
         <ul class="nav flex-column">
           <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Home</a></li>
@@ -88,9 +89,21 @@
     <div class="d-flex flex-column flex-sm-row justify-content-between py-4 my-4 border-top">
       <p>© 2024 Company, Inc. All rights reserved.</p>
       <ul class="list-unstyled d-flex">
-        <li class="ms-3"><a class="link-body-emphasis" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#twitter"></use></svg></a></li>
-        <li class="ms-3"><a class="link-body-emphasis" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#instagram"></use></svg></a></li>
-        <li class="ms-3"><a class="link-body-emphasis" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#facebook"></use></svg></a></li>
+        <li class="ms-3">
+          <a class="link-body-emphasis" href="#">
+           <img width="50px" src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Telegram_logo.svg/960px-Telegram_logo.svg.png" alt="">
+          </a>
+        </li>
+        <li class="ms-3">
+          <a class="link-body-emphasis" href="#">
+           <img width="90px" src="https://www.pngmart.com/files/22/WhatsApp-Logo-PNG-Isolated-Free-Download.png" alt="">
+          </a>
+        </li>
+        <li class="ms-3">
+          <a class="link-body-emphasis" href="#">
+           <img width="50px" src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="">
+          </a>
+        </li>
       </ul>
     </div>
   </footer>
