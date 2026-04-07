@@ -8,7 +8,7 @@ from post.models import Article, Category
 def index(request):
     articles = Article.objects.all()
 
-    paginator = Paginator(articles, 2) # кол-во постов на страницу
+    paginator = Paginator(articles, 6) # кол-во постов на страницу
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
  

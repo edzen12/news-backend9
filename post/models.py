@@ -16,10 +16,26 @@ class Category(models.Model):
         verbose_name_plural = "Категории"
 
 
+class Tag(models.Model):
+    name = models.CharField(max_length=100, unique=True)
+    slug = models.SlugField(unique=True)
+
+    def __str__(self):
+        return self.name 
+    
+    class Meta:
+        verbose_name = 'хештег'
+        verbose_name_plural = 'Хештеги'
+
+
 class Article(models.Model):
     category = models.ForeignKey(
         Category, on_delete=models.CASCADE, null=True,
         related_name="articles", verbose_name="Категория"
+    )
+    tags = models.ManyToManyField(
+        Tag, related_name='articles', 
+        blank=True, null=True
     )
     title = models.CharField(max_length=150)
     description = models.TextField()
