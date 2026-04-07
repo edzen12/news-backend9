@@ -1,47 +1,81 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <div class="container">
-        <div class="row">
-            {% for art in page_obj %} 
-            <div class="col-lg-4">
-                <div class="card p-2">
-                    <a href='{% url "post_detail" art.slug %}'>
-                        <img width="300px" class="img-thumbnail" src="{{art.image.url}}">
-                        <h2>{{art.title}}</h2>
-                        <p>{{art.description|truncatewords:12}}</p>
-                    </a>
-                </div>
-            </div> 
-            {% endfor %}
-        </div> 
-    </div>
-    <!-- pagination -->  
-     <nav class="container" aria-label="Пример навигации по страницам">
-        <ul class="pagination">
-            {% if page_obj.has_previous %}
-            <li class="page-item">
-                <a class="page-link" href="?page=1">1ая</a>
-            </li>
-            <li class="page-item">
-                <a class="page-link" href="?page={{page_obj.previous_page_number}}">
-                    Назад
+<div class="container">
+    <div class="row">
+        <!-- col -->
+        <div class="col-lg-9">
+            <div class="container">
+                <div class="row">
+                    {% for art in page_obj %} 
+                    <div class="col-lg-4">
+                        <div class="card p-2">
+                            <a href='{% url "post_detail" art.slug %}'>
+                                <img width="300px" class="img-thumbnail" src="{{art.image.url}}">
+                                <h2>{{art.title}}</h2>
+                                <div class="tags">
+                                    {% for tag in art.tags.all %}
+                                    <a href="{% url "tag_posts" tag.slug %}">
+                                        #{{tag.name}}
+                                    </a>
+                                    {% endfor %}
+                                </div>
+                                <p>{{art.description|truncatewords:12}}</p>
+                            </a>
+                        </div>
+                    </div> 
+                    {% endfor %}
+                </div> 
+            </div>
+            <!-- pagination -->  
+            <nav class="container" aria-label="Пример навигации по страницам">
+                <ul class="pagination">
+                    {% if page_obj.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page=1">1ая</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{page_obj.previous_page_number}}">
+                            Назад
+                        </a>
+                    </li>
+                    {% endif %}
+                    <li class="page-item"><a class="page-link" href="#">
+                        Стр {{page_obj.number}} из {{page_obj.paginator.num_pages}}
+                    </a></li>
+                    {% if page_obj.has_next %} 
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{page_obj.next_page_number}}">Следующая</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{page_obj.paginator.num_pages}}">Последняя</a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </nav> 
+        </div>
+        <!-- col -->
+        <div class="col-lg-3">
+            <div class="d-flex flex-column align-items-stretch flex-shrink-0 bg-body-tertiary" style="width: 380px;">
+                <a href="/" class="d-flex align-items-center flex-shrink-0 p-3 link-body-emphasis text-decoration-none border-bottom">
+                <svg class="bi pe-none me-2" width="30" height="24"><use xlink:href="#bootstrap"></use></svg>
+                <span class="fs-5 fw-semibold">List group</span>
                 </a>
-            </li>
-            {% endif %}
-            <li class="page-item"><a class="page-link" href="#">
-                Стр {{page_obj.number}} из {{page_obj.paginator.num_pages}}
-            </a></li>
-            {% if page_obj.has_next %} 
-            <li class="page-item">
-                <a class="page-link" href="?page={{page_obj.next_page_number}}">Следующая</a>
-            </li>
-            <li class="page-item">
-                <a class="page-link" href="?page={{page_obj.paginator.num_pages}}">Последняя</a>
-            </li>
-            {% endif %}
-        </ul>
-    </nav> 
+                <div class="list-group list-group-flush border-bottom scrollarea">
+                {% for tag in tags %}
+                <a href="{% url 'tag_posts' tag.slug %}" class="list-group-item list-group-item-action py-3 lh-sm" aria-current="true">
+                    <div class="d-flex  w-100 align-items-center justify-content-between">
+                    <strong class="mb-1">#{{tag.name}}</strong>
+                    <small>({{tag.articles_count}})</small>
+                    </div> 
+                </a>
+                {% endfor %}
+                </div>
+            </div>
+        </div>
+        <!-- col -->
+    </div>
+</div>
 {% endblock content %}
     
     
