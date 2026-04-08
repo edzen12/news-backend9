@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container">
+    <h1 class="text-center mt-3 mb-3">#{{tag.name}}</h1>
+    <div class="row">
+        {% for article in page_obj %}
+        <div class="col-lg-4">
+            <a href='{% url "post_detail" article.slug %}'>
+                <img width="300px" class="img-thumbnail" src="{{article.image.url}}">
+                <h3>{{article.title}}</h3>
+                <p>{{article.description}}</p>
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock content %}
