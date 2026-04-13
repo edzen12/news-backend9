@@ -17,6 +17,12 @@
             <h3>News.kg</h3>
         </a>
 
+        <form method='get' action='{% url "search" %}' class="d-flex col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
+          <input name='q' type="text" value="{{request.GET.q}}" 
+          class="form-control" placeholder="Введите слово...">
+          <button type='submit' class="btn btn-light">Поиск</button>
+        </form> 
+
         <ul class="nav nav-pills headerBlock">
             <li class="nav-item">
                 <a href="{% url "home" %}" class="nav-link active" aria-current="page">Главная</a>
@@ -30,7 +36,7 @@
             
             {% endfor %}
             <li class="nav-item">
-              <a class="nav-link" href="">Валюта</a>
+              <a class="nav-link" href="{% url "currency" %}">Валюта</a>
             </li>
         </ul>
         </header>

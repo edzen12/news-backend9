@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block content %}
+
+
+<div class="container"> 
+    <h1 class='text-center'>Курсы валют</h1>
+    <!-- ЛЕВАЯ ЧАСТЬ -->
+    <div class="block">
+        <h2>Курсы (НБКР)</h2>
+
+        {% for cur in currencies %}
+            <div class="currency-item">
+                {{ cur.code }} — {{ cur.rate|floatformat:2 }} сом
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock content %}
