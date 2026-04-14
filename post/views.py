@@ -1,11 +1,11 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.db.models import Count
 from django.core.paginator import Paginator
 from django.db.models import Q 
 import xml.etree.ElementTree as ET
 import requests
 
-from post.models import Article, Category, Tag
+from post.models import Article, Category, Tag, Comment
 
 
 def currency_view(request):
@@ -100,8 +100,22 @@ def post_detail(request, slug):
     categories = Category.objects.annotate(
         articles_count=Count('articles')
     ).filter(articles_count__gt=0)[:6]
+
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        text = request.POST.get('text')
+        if name and text:
+            Comment.objects.create(
+                article=articles,
+                name=name,
+                text=text 
+            )
+            return redirect('post_detail', slug=slug)
+    comments = articles.comments.all().order_by('-id')
+
     context = {
         'tags':tags, 
+        'comments':comments, 
         'articles':articles, 
         'categories':categories,
     }

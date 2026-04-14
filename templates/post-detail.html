@@ -2,9 +2,37 @@
 
 {% block content %}
     <div class="container">
-        <span>{{articles.created_at}}</span>
-        <h2>{{articles.title}}</h2>
-        <img src="{{articles.image.url}}" width="40%" alt="">
-        <p class="mt-3">{{articles.description|safe}}</p>
+        <div class="row">
+            <!-- col -->
+            <div class="col-lg-8">
+                <span>{{articles.created_at}}</span>
+                <h2>{{articles.title}}</h2>
+                <img src="{{articles.image.url}}" width="40%" alt="">
+                <p class="mt-3">{{articles.description|safe}}</p>
+            </div>
+            <!-- col -->
+            <div class="col-lg-4">
+                <h3>Комментарии</h3>
+                <form method="POST">
+                    {% csrf_token %}
+                    <input class="form-control" type="text" name="name" placeholder="Ваше имя" required>
+                    <br>
+                    <textarea class="form-control" name="text" placeholder="Ваш комментарии" required></textarea>
+                    <br>
+                    <button class="btn btn-primary" type="submit">Отправить</button>
+                </form>
+                <hr>
+                {% for comment in comments %}
+                <div class="comments">
+                    <strong>{{comment.name}}</strong>
+                    <small>{{comment.created_at}}</small>
+                    <p>{{comment.text}}</p>
+                </div>
+                {% empty %}
+                    <p>Нет комментариев</p>
+                {% endfor %}
+            </div>
+            <!-- col -->
+        </div>
     </div>
 {% endblock content %}
