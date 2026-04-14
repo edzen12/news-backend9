@@ -12,7 +12,7 @@
                         <div class="card p-2">
                             <a href='{% url "post_detail" art.slug %}'>
                                 <img width="300px" class="img-thumbnail" src="{{art.image.url}}">
-                                <h2>{{art.title}}</h2>
+                                <h4>{{art.title}}</h4>
                                 <div class="tags">
                                     {% for tag in art.tags.all %}
                                     <a href="{% url "tag_posts" tag.slug %}">
@@ -20,7 +20,7 @@
                                     </a>
                                     {% endfor %}
                                 </div>
-                                <p>{{art.description|truncatewords:12}}</p>
+                                <p>{{art.description|truncatewords:12|safe}}</p>
                             </a>
                         </div>
                     </div> 

@@ -1,4 +1,5 @@
 from django.db import models
+from django_ckeditor_5.fields import CKEditor5Field
 
 
 class Category(models.Model):
@@ -35,10 +36,10 @@ class Article(models.Model):
     )
     tags = models.ManyToManyField(
         Tag, related_name='articles', 
-        blank=True, null=True
+        blank=True
     )
     title = models.CharField(max_length=150)
-    description = models.TextField()
+    description = CKEditor5Field('Описание', config_name='extends')
     image = models.ImageField(upload_to='posts', null=True)
     created_at = models.DateTimeField(auto_now_add=True, null=True)
     slug = models.SlugField(unique=True, null=True)

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from django.conf.urls.static import static
 from django.conf import settings
 from post import views
@@ -7,6 +7,7 @@ from post import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path("ckeditor5/", include('django_ckeditor_5.urls')),
     path('', views.index, name='home'),
     path('search/', views.search, name='search'),
     path('currency/', views.currency_view, name='currency'),
