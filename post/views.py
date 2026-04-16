@@ -2,10 +2,25 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.db.models import Count
 from django.core.paginator import Paginator
 from django.db.models import Q 
+from django.contrib.auth.forms import UserCreationForm
 import xml.etree.ElementTree as ET
 import requests
 
 from post.models import Article, Category, Tag, Comment
+
+
+def register(request):
+    if request.method=='POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('login')
+    else:
+        form = UserCreationForm()
+    context = {
+        'form':form,
+    }
+    return render(request, 'register.html', context)
 
 
 def currency_view(request):
