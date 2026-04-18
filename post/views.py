@@ -5,6 +5,9 @@ from django.db.models import Q
 from django.contrib.auth.forms import UserCreationForm, PasswordChangeForm
 from django.contrib.auth.decorators import login_required 
 from django.contrib.auth import update_session_auth_hash
+from django.contrib.auth.models import User
+from django.core.validators import validate_email
+from django.core.exceptions import ValidationError
 import xml.etree.ElementTree as ET
 import requests
 
@@ -14,17 +17,32 @@ from post.models import Article, Category, Tag, Comment
 @login_required
 def profile(request):
     user = request.user
-
     if request.method == 'POST':
-        user.username = request.POST.get('username')
-        user.first_name = request.POST.get('first_name')
-        user.last_name = request.POST.get('last_name')
-        user.email = request.POST.get('email')
+        username = request.POST.get('username', '').strip()
+        first_name = request.POST.get('first_name', '').strip()
+        last_name = request.POST.get('last_name', '').strip()
+        email = request.POST.get('email', '').strip()
+        if not username:
+            return redirect('profile')
+        if len(username) > 150:
+            return redirect('profile')
+        if User.objects.exclude(id=user.id).filter(username=username).exists():
+            return redirect('profile')
+        if email:
+            try:
+                validate_email(email)
+            except ValidationError:
+                return redirect('profile')
+        user.username = username
+        if first_name:
+            user.first_name = first_name
+        if last_name:
+            user.last_name = last_name
+        if email:
+            user.email = email
         user.save()
-    context = {
-        'user':user
-    }
-    return render(request, 'profile.html', context)
+        return redirect('profile')
+    return render(request, 'profile.html', {'user': user})
 
 
 @login_required

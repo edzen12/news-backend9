@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+    <h2>Профиль</h2>
+    <form method="post">
+        {% csrf_token %}
+        <input type="text" class="form-control" name="username" 
+                            value="{{ user.username }}" placeholder="Логин"> <br>
+        <input type="text" class="form-control" name="first_name" 
+                            value="{{ user.first_name }}" placeholder="Имя"> <br>
+        <input type="text" class="form-control" name="last_name" 
+                            value="{{ user.last_name }}" placeholder="Фамилия"> <br>
+        <input type="email" class="form-control" name="email" 
+                            value="{{ user.email }}" placeholder="Email"> <br>
+        <button class="btn btn-primary" type="submit">Сохранить</button>
+    </form>
+    <a class="btn btn-warning mb-3 mt-3" href="{% url 'change_password' %}">
+        Сменить пароль</a> <br>
+</div>
+{% endblock content %}
