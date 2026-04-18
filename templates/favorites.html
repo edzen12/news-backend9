@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <h2>Избранные посты</h2>
+    <div class="row">
+        {% for fav in favorites %}
+        <div class="col-lg-3">
+            <div style="margin-bottom:20px;">
+                <a href="{% url 'post_detail' fav.article.slug %}">
+                    <img src="{{ fav.article.image.url }}" width="220px"> 
+                    <h4>{{ fav.article.title }}</h4>
+                </a>
+            </div>
+        </div>
+    {% empty %}
+        <p>Нет избранных постов</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

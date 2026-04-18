@@ -1,5 +1,6 @@
 from django.db import models
 from django_ckeditor_5.fields import CKEditor5Field
+from django.contrib.auth.models import User
 
 
 class Category(models.Model):
@@ -67,3 +68,16 @@ class Comment(models.Model):
     class Meta:
         verbose_name_plural = 'Комментарии'
         verbose_name = 'комментарии'
+
+
+class Favorite(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    article = models.ForeignKey(
+        Article, on_delete=models.CASCADE, related_name="favorites"
+    )
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        verbose_name_plural = 'Избранные'
+        verbose_name = 'избранное'
+        unique_together = ('user', 'article')

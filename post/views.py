@@ -11,7 +11,7 @@ from django.core.exceptions import ValidationError
 import xml.etree.ElementTree as ET
 import requests
 
-from post.models import Article, Category, Tag, Comment
+from post.models import Article, Category, Tag, Comment, Favorite
 
 
 @login_required
@@ -183,10 +183,15 @@ def post_detail(request, slug):
             return redirect('post_detail', slug=slug)
     comments = articles.comments.all().order_by('-id')
 
+    is_favorite = False
+    if request.user.is_authenticated:
+        is_favorite = articles.favorites.filter(user=request.user).exists()
+
     context = {
         'tags':tags, 
         'comments':comments, 
         'articles':articles, 
+        'is_favorite': is_favorite,
         'categories':categories,
     }
     return render(request, 'post-detail.html', context)
@@ -233,3 +238,22 @@ def tag_posts(request, slug):
         'categories':categories,
     }
     return render(request, 'tags.html', context)
+
+
+@login_required
+def toggle_favorite(request, slug):
+    article = get_object_or_404(Article, slug=slug)
+    fav, created = Favorite.objects.get_or_create(
+        user=request.user,
+        article=article
+    )
+    if not created:
+        fav.delete()
+    return redirect('post_detail', slug=slug)
+
+
+@login_required
+def favorites_list(request):
+    favorites = Favorite.objects.filter(user=request.user)\
+        .select_related('article').order_by('-created_at')
+    return render(request, 'favorites.html', {'favorites':favorites})
