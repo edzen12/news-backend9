@@ -2,11 +2,45 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.db.models import Count
 from django.core.paginator import Paginator
 from django.db.models import Q 
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, PasswordChangeForm
+from django.contrib.auth.decorators import login_required 
+from django.contrib.auth import update_session_auth_hash
 import xml.etree.ElementTree as ET
 import requests
 
 from post.models import Article, Category, Tag, Comment
+
+
+@login_required
+def profile(request):
+    user = request.user
+
+    if request.method == 'POST':
+        user.username = request.POST.get('username')
+        user.first_name = request.POST.get('first_name')
+        user.last_name = request.POST.get('last_name')
+        user.email = request.POST.get('email')
+        user.save()
+    context = {
+        'user':user
+    }
+    return render(request, 'profile.html', context)
+
+
+@login_required
+def change_password(request):
+    if request.method == 'POST':
+        form = PasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)
+            return redirect('profile')
+    else:
+        form = PasswordChangeForm(request.user)
+    context = {
+        'form':form
+    }
+    return render(request, 'change_password.html', context)
 
 
 def register(request):
@@ -21,6 +55,9 @@ def register(request):
         'form':form,
     }
     return render(request, 'register.html', context)
+
+
+
 
 
 def currency_view(request):
