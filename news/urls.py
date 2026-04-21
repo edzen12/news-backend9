@@ -3,14 +3,19 @@ from django.urls import path, include
 from django.conf.urls.static import static
 from django.conf import settings
 from django.contrib.auth import views as auth_views
+from django.conf.urls.i18n import i18n_patterns
 from post import views
 
-
 urlpatterns = [
+    path('i18n/', include('django.conf.urls.i18n')),
+]
+
+urlpatterns += i18n_patterns(
     path('admin/', admin.site.urls),
     path("ckeditor5/", include('django_ckeditor_5.urls')),
+
     path('register/', views.register, name='register'),
-    path('login/', auth_views.LoginView.as_view(template_name='login.html'), name='login'),
+    path('login/', auth_views.LoginView.as_view(template_name='auth/login.html'), name='login'),
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
     path('profile/', views.profile, name='profile'), 
     path('change-password/', views.change_password, name='change_password'),
@@ -25,4 +30,5 @@ urlpatterns = [
     path('<slug:slug>/', views.post_detail, name='post_detail'),
     
     path('category/<slug:slug>/', views.category_posts, name='category_posts'),
-]+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+)
+urlpatterns+=static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

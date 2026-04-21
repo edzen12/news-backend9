@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        {% for art in page_obj %}
+            <div class="col-lg-6">
+                <a href='{% url "post_detail" art.slug %}'>
+                    <img width="100%" class="img-thumbnail" src="{{art.image.url}}">
+                    <h2>{{art.title}}</h2>
+                    <p>{{art.description|truncatewords:12}}</p>
+                </a>
+            </div>
+        {% endfor %}
+    </div>
+    {% include "pages/pagination.html" %}
+</div>
+{% endblock content %}

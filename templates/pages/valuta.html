@@ -1,16 +1,17 @@
 {% extends "base.html" %}
 {% block content %}
 
+{% load i18n %}
 
 <div class="container"> 
-    <h1 class='text-center'>Курсы валют</h1>
+    <h1 class='text-center'>{% trans "Курсы валют" %}</h1>
     <!-- ЛЕВАЯ ЧАСТЬ -->
     <div class="block">
-        <h2>Курсы (НБКР)</h2>
+        <h2>{% trans "Курсы (НБКР)" %}</h2>
 
         {% for cur in currencies %}
             <div class="currency-item">
-                {{ cur.code }} — {{ cur.rate|floatformat:2 }} сом
+                {{ cur.code }} — {{ cur.rate|floatformat:2 }} {% trans "сом" %}
             </div>
         {% endfor %}
     </div>

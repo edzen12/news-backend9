@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
+{% load i18n %}
 <div class="container">
     <div class="row">
         <!-- col -->
@@ -27,39 +28,14 @@
                     {% endfor %}
                 </div> 
             </div>
-            <!-- pagination -->  
-            <nav class="container" aria-label="Пример навигации по страницам">
-                <ul class="pagination">
-                    {% if page_obj.has_previous %}
-                    <li class="page-item">
-                        <a class="page-link" href="?page=1">1ая</a>
-                    </li>
-                    <li class="page-item">
-                        <a class="page-link" href="?page={{page_obj.previous_page_number}}">
-                            Назад
-                        </a>
-                    </li>
-                    {% endif %}
-                    <li class="page-item"><a class="page-link" href="#">
-                        Стр {{page_obj.number}} из {{page_obj.paginator.num_pages}}
-                    </a></li>
-                    {% if page_obj.has_next %} 
-                    <li class="page-item">
-                        <a class="page-link" href="?page={{page_obj.next_page_number}}">Следующая</a>
-                    </li>
-                    <li class="page-item">
-                        <a class="page-link" href="?page={{page_obj.paginator.num_pages}}">Последняя</a>
-                    </li>
-                    {% endif %}
-                </ul>
-            </nav> 
+            {% include "pages/pagination.html" %}
         </div>
         <!-- col -->
         <div class="col-lg-3">
             <div class="d-flex flex-column align-items-stretch flex-shrink-0 bg-body-tertiary" style="width: 380px;">
                 <a href="/" class="d-flex align-items-center flex-shrink-0 p-3 link-body-emphasis text-decoration-none border-bottom">
                 <svg class="bi pe-none me-2" width="30" height="24"><use xlink:href="#bootstrap"></use></svg>
-                <span class="fs-5 fw-semibold">#Хештеги</span>
+                <span class="fs-5 fw-semibold">#{% trans "Хештеги" %}</span>
                 </a>
                 <div class="list-group list-group-flush border-bottom scrollarea">
                 {% for tag in tags %}

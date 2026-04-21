@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block content %}
+{% load i18n %}
+<div class="container">
+    <h1>{% trans "Результа поиск по запросу" %}: {{query}}</h1>
+    <div class="row">
+    {% for article in page_obj %}
+        <div class="col-lg-4">
+            <a href="{% url 'post_detail' article.slug %}"> 
+                <img src="{{article.image.url}}" width="300px" alt="">
+                <h3>{{article.title}}</h3>
+                <p>{{article.description}}</p>
+                <div class="tags">
+                    {% for tag in article.tags.all %}
+                        <a href="{% url 'tag_posts' tag.slug %}">#{{tag.name}}</a>
+                    {% endfor %}
+                </div>
+            </a>
+        </div>
+    {% empty %}
+    <p>{% trans "Ничего не найдено" %}</p>
+    {% endfor %}
+    </div>
+    <!-- пагинация -->
+    {% include "pages/pagination.html" %}
+    <!-- пагинация -->
+</div>
+{% endblock content %}

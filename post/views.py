@@ -42,7 +42,7 @@ def profile(request):
             user.email = email
         user.save()
         return redirect('profile')
-    return render(request, 'profile.html', {'user': user})
+    return render(request, 'auth/profile.html', {'user': user})
 
 
 @login_required
@@ -58,7 +58,7 @@ def change_password(request):
     context = {
         'form':form
     }
-    return render(request, 'change_password.html', context)
+    return render(request, 'auth/change_password.html', context)
 
 
 def register(request):
@@ -72,7 +72,7 @@ def register(request):
     context = {
         'form':form,
     }
-    return render(request, 'register.html', context)
+    return render(request, 'auth/register.html', context)
 
 
 
@@ -113,7 +113,7 @@ def currency_view(request):
         'currencies':currencies,
         'result':result,
     }
-    return render(request, 'valuta.html', context)
+    return render(request, 'pages/valuta.html', context)
 
 
 def search(request):
@@ -134,7 +134,7 @@ def search(request):
         'query':query,
         'page_obj':page_obj, 
     }
-    return render(request, 'search.html', context)
+    return render(request, 'pages/search.html', context)
 
 
 
@@ -194,7 +194,7 @@ def post_detail(request, slug):
         'is_favorite': is_favorite,
         'categories':categories,
     }
-    return render(request, 'post-detail.html', context)
+    return render(request, 'pages/post-detail.html', context)
 
 
 def category_posts(request, slug):
@@ -218,7 +218,7 @@ def category_posts(request, slug):
         'page_obj':page_obj,
         'categories':categories,
     }
-    return render(request, 'category.html', context)
+    return render(request, 'pages/category.html', context)
 
 
 def tag_posts(request, slug):
@@ -237,7 +237,7 @@ def tag_posts(request, slug):
         'page_obj':page_obj,
         'categories':categories,
     }
-    return render(request, 'tags.html', context)
+    return render(request, 'pages/tags.html', context)
 
 
 @login_required
@@ -256,4 +256,4 @@ def toggle_favorite(request, slug):
 def favorites_list(request):
     favorites = Favorite.objects.filter(user=request.user)\
         .select_related('article').order_by('-created_at')
-    return render(request, 'favorites.html', {'favorites':favorites})
+    return render(request, 'pages/favorites.html', {'favorites':favorites})

@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
+{% load i18n %}
 <div class="container">
     <div class="row">
         <!-- col -->
@@ -12,28 +13,28 @@
                     {% csrf_token %}
                     <button type="submit" class="btn btn-outline-danger">
                         {% if is_favorite %}
-                            Убрать из избранного
+                            {% trans "Убрать из избранного" %}
                         {% else %}
-                            В избранное
+                            {% trans "В избранное" %}
                         {% endif %}
                     </button>
                 </form>
             {% else %}
-                <p>Войдите, чтобы добавить в избранное</p>
+                <p>{% trans "Войдите, чтобы добавить в избранное" %}</p>
             {% endif %}
             <img class="mt-2" src="{{articles.image.url}}" width="40%" alt="">
             <p class="mt-3">{{articles.description|safe}}</p>
         </div>
         <!-- col -->
         <div class="col-lg-4">
-            <h3>Комментарии</h3>
+            <h3>{% trans "Комментарии" %}</h3>
             <form method="POST">
                 {% csrf_token %}
-                <input class="form-control" type="text" name="name" placeholder="Ваше имя" required>
+                <input class="form-control" type="text" name="name" placeholder="{% trans "Ваше имя" %}" required>
                 <br>
-                <textarea class="form-control" name="text" placeholder="Ваш комментарии" required></textarea>
+                <textarea class="form-control" name="text" placeholder="{% trans "Ваш комментарии" %}" required></textarea>
                 <br>
-                <button class="btn btn-primary" type="submit">Отправить</button>
+                <button class="btn btn-primary" type="submit">{% trans "Отправить" %}</button>
             </form>
             <hr>
             {% for comment in comments %}
@@ -43,7 +44,7 @@
                 <p>{{comment.text}}</p>
             </div>
             {% empty %}
-                <p>Нет комментариев</p>
+                <p>{% trans "Нет комментариев" %}</p>
             {% endfor %}
         </div>
         <!-- col -->
