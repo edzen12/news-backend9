@@ -65,7 +65,9 @@
               <li class="nav-item">
                 <form action="{% url 'logout' %}" method="post">
                     {% csrf_token %}
-                    <button type="submit" class="nav-link">{% trans "Выход" %}</button>
+                    <button class='btn btn-outline-warning' style='margin-left:5px' type="submit" class="nav-link">
+                      {% trans "Выход" %}
+                    </button>
                 </form>
               </li> 
               {% else %}

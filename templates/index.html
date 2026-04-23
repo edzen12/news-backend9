@@ -23,6 +23,21 @@
                                 </div>
                                 <p>{{art.description|truncatewords:12|safe}}</p>
                             </a>
+                            <p>💚{{art.likes_count}}</p>
+                            {% if user.is_authenticated %}
+                            <form action='{% url "toggle_like" art.slug %}' method='post'>
+                                {% csrf_token %}
+                                <button class="btn btn-outline-danger" type="submit">
+                                    {% if art.id in liked_ids %}
+                                    ♡
+                                    {% else %}
+                                    💕 
+                                    {% endif %}
+                                </button>
+                            </form>
+                            {% else %}
+                            <p>Лайкать могут только авторизованные пользователя</p>
+                            {% endif %}
                         </div>
                     </div> 
                     {% endfor %}

@@ -11,7 +11,7 @@ from django.core.exceptions import ValidationError
 import xml.etree.ElementTree as ET
 import requests
 
-from post.models import Article, Category, Tag, Comment, Favorite
+from post.models import Article, Category, Tag, Comment, Favorite, Like
 
 
 @login_required
@@ -139,7 +139,12 @@ def search(request):
 
 
 def index(request):
-    articles = Article.objects.all()
+    articles = Article.objects.annotate(
+        likes_count=Count('likes')
+    )
+    liked_ids = []
+    if request.user.is_authenticated:
+        liked_ids = Like.objects.filter(user=request.user).values_list('article_id', flat=True)
 
     tags = Tag.objects.annotate(
         articles_count=Count('articles')
@@ -154,6 +159,7 @@ def index(request):
     ).filter(articles_count__gt=0)[:6]
     context = {
         'tags':tags,
+        'liked_ids':liked_ids,
         'page_obj':page_obj,
         'categories':categories,
     }
@@ -257,3 +263,19 @@ def favorites_list(request):
     favorites = Favorite.objects.filter(user=request.user)\
         .select_related('article').order_by('-created_at')
     return render(request, 'pages/favorites.html', {'favorites':favorites})
+
+
+@login_required
+def toggle_like(request, slug):
+    article = get_object_or_404(Article, slug=slug)
+    like, created = Like.objects.get_or_create(
+        user=request.user,
+        article=article
+    )
+    if not created:
+        like.delete()
+    return redirect(request.META.get('HTTP_REFERER', '/'))
+
+
+
+

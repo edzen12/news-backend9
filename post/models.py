@@ -81,3 +81,14 @@ class Favorite(models.Model):
         verbose_name_plural = 'Избранные'
         verbose_name = 'избранное'
         unique_together = ('user', 'article')
+
+
+class Like(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    article = models.ForeignKey(
+        Article, on_delete=models.CASCADE, related_name='likes'
+    )
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ('user', 'article')

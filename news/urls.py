@@ -24,6 +24,7 @@ urlpatterns += i18n_patterns(
     path('currency/', views.currency_view, name='currency'), 
     path('tags/<slug:slug>', views.tag_posts, name='tag_posts'),
 
+    path('like/<slug:slug>/', views.toggle_like, name='toggle_like'),
     path('favorite/<slug:slug>/', views.toggle_favorite, name='toggle_favorite'),
     path('favorites/', views.favorites_list, name='favorites'),
 
