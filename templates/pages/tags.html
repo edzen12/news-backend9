@@ -3,15 +3,16 @@
 {% block content %}
 
 <div class="container">
-    <h1 class="text-center mt-3 mb-3">#{{tag.name}}</h1>
+    <h2 class="text-center mt-3 mb-3">#{{tag.name}}</h2>
     <div class="row">
         {% for article in page_obj %}
-        <div class="col-lg-4">
+        <div class="col-lg-6">
             <a href='{% url "post_detail" article.slug %}'>
-                <img width="300px" class="img-thumbnail" src="{{article.image.url}}">
-                <h3>{{article.title}}</h3>
-                <p>{{article.description}}</p>
+                <img width="300px" class="img-thumbnail" 
+                src="{{article.image.url}}">
+                <h5>{{article.title}}</h5>
             </a>
+            <p>{{article.description|truncatewords:10|safe}}</p>
         </div>
         {% endfor %}
     </div>

@@ -12,6 +12,17 @@ header{
     background-color: #1c55e4;
     margin-left: 5px;
 }
+.headerBlock a:hover{
+    color: white;; 
+    background-color: #644afb;
+}
+
 .footerStyle a{
     color: rgb(228, 224, 224)!important;
+} 
+footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
 }

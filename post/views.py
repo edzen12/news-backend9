@@ -109,7 +109,11 @@ def currency_view(request):
             result = (amount*from_rate)/to_rate
         except:
             pass 
+    categories = Category.objects.annotate(
+            articles_count=Count('articles')
+        ).filter(articles_count__gt=0)[:4]
     context = {
+        'categories':categories,
         'currencies':currencies,
         'result':result,
     }
@@ -156,7 +160,7 @@ def index(request):
  
     categories = Category.objects.annotate(
         articles_count=Count('articles')
-    ).filter(articles_count__gt=0)[:6]
+    ).filter(articles_count__gt=0)[:4]
     context = {
         'tags':tags,
         'liked_ids':liked_ids,
@@ -175,7 +179,7 @@ def post_detail(request, slug):
 
     categories = Category.objects.annotate(
         articles_count=Count('articles')
-    ).filter(articles_count__gt=0)[:6]
+    ).filter(articles_count__gt=0)[:4]
 
     if request.method == 'POST':
         name = request.POST.get('name')
@@ -217,7 +221,7 @@ def category_posts(request, slug):
 
     categories = Category.objects.annotate(
         articles_count=Count('articles')
-    ).filter(articles_count__gt=0)[:6]
+    ).filter(articles_count__gt=0)[:4]
     context = {
         'tags':tags,
         'category':category,
@@ -237,7 +241,7 @@ def tag_posts(request, slug):
 
     categories = Category.objects.annotate(
         articles_count=Count('articles')
-    ).filter(articles_count__gt=0)[:6]
+    ).filter(articles_count__gt=0)[:4]
     context = {
         'tag':tag,
         'page_obj':page_obj,

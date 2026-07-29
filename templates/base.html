@@ -10,10 +10,10 @@
   </head>
   <body>
     <!-- header -->
-    <div class=" bg-success">
+    <div class=" bg-primary">
         <header class="container d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
         <a href="{% url "home" %}" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
-            <img width="50px" src='https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Python-logo-notext.svg/1280px-Python-logo-notext.svg.png'>
+            <img width="60px" src='{% static 'images/news.png' %}'>
             <h3>News.kg</h3>
         </a>
 
@@ -21,8 +21,8 @@
           {% csrf_token %}
           <input type="hidden" name="language" value="ru">
           <input type="hidden" name="next" value="{{request.path}}">
-          <button type="submit" 
-              class="btn btn-sm {% if LANGUAGE_CODE == 'ru' %} btn-warning {% else %} btn-outline-warning {% endif %}">
+          <button type="submit"  style='color:white'
+              class="btn btn-sm {% if LANGUAGE_CODE == 'ru' %} btn-info {% else %} btn-outline-info {% endif %}">
               RU</button>
         </form>
 
@@ -30,8 +30,8 @@
           {% csrf_token %}
           <input type="hidden" name="language" value="en">
           <input type="hidden" name="next" value="{{request.path}}">
-          <button type="submit" 
-              class="btn btn-sm {% if LANGUAGE_CODE == 'en' %} btn-warning {% else %} btn-outline-warning {% endif %}">
+          <button type="submit"  style='color:white'
+              class="btn btn-sm {% if LANGUAGE_CODE == 'en' %} btn-info {% else %} btn-outline-info {% endif %}">
               EN</button>
         </form>
 
@@ -65,7 +65,7 @@
               <li class="nav-item">
                 <form action="{% url 'logout' %}" method="post">
                     {% csrf_token %}
-                    <button class='btn btn-outline-warning' style='margin-left:5px' type="submit" class="nav-link">
+                    <button class='btn btn-outline-info' style='margin-left:5px' type="submit" class="nav-link">
                       {% trans "Выход" %}
                     </button>
                 </form>
@@ -92,31 +92,31 @@
     {% endblock content %}
 
     <!-- footer -->
-<div class=" bg-success text-light">
-  <footer class="container py-5 footerStyle">
+<footer class=" bg-primary text-light">
+  <div class="container footerStyle">
 
-    <div class="d-flex flex-column flex-sm-row justify-content-between py-4 my-4 border-top">
-      <p>© 2026 {% trans "Все права защищены" %}.</p>
+    <div class="d-flex flex-column flex-sm-row justify-content-between py-3 border-top">
+      <p>© 2026 {% trans "Все права защищены" %}. <br> {% trans "Разработано группой Backend-9 ITRUN" %}</p> 
       <ul class="list-unstyled d-flex">
         <li class="ms-3">
           <a class="link-body-emphasis" href="#">
-           <img width="50px" src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Telegram_logo.svg/960px-Telegram_logo.svg.png" alt="">
+           <img width="45px" src="{% static 'images/tg.png' %}" alt="">
           </a>
         </li>
         <li class="ms-3">
           <a class="link-body-emphasis" href="#">
-           <img width="90px" src="https://www.pngmart.com/files/22/WhatsApp-Logo-PNG-Isolated-Free-Download.png" alt="">
+           <img width="45px" src="{% static 'images/wa.png' %}" alt="">
           </a>
         </li>
         <li class="ms-3">
           <a class="link-body-emphasis" href="#">
-           <img width="50px" src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="">
+           <img width="40px" src="{% static 'images/inst.png' %}" alt="">
           </a>
         </li>
       </ul>
     </div>
-  </footer>
-</div>
+  </div>
+</footer>
 
     <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
   </body>

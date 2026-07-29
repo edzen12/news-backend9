@@ -8,14 +8,14 @@
         <div class="col-lg-4">
             <a href="{% url 'post_detail' article.slug %}"> 
                 <img src="{{article.image.url}}" width="300px" alt="">
-                <h3>{{article.title}}</h3>
-                <p>{{article.description}}</p>
-                <div class="tags">
+                <h3>{{article.title}}</h3> 
+            </a>
+            <div class="tags">
                     {% for tag in article.tags.all %}
                         <a href="{% url 'tag_posts' tag.slug %}">#{{tag.name}}</a>
                     {% endfor %}
                 </div>
-            </a>
+            <p>{{article.description|truncatewords:15|safe}}</p>
         </div>
     {% empty %}
     <p>{% trans "Ничего не найдено" %}</p>
