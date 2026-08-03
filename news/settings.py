@@ -27,8 +27,7 @@ DEBUG = False
 
 ALLOWED_HOSTS = [
     'itrun.su',
-    'www.itrun.su',
-    '178.219.159.250'
+    'www.itrun.su'
 ]
 
 
